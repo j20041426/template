@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Demo</title>
+		<style type="text/css">
+			.odd {
+			    color: #ff0000;
+			}
+			.even {
+			    color: #00ff00;
+			}
+		</style>
+	</head>
+	<body>
+	    <script type="text/javascript" src="dist/template.js"></script>
+	    <script type="text/javascript">
+	        //普通用法：循环+条件判断
+	    	var temp = '<div class="{{clas}}">{{prefix}}:{{num}}</div>';
+	    	var t = template(temp, {
+	    	    "clas": function(index){
+	    	        return index % 2 ? 'even' : 'odd';
+	    	    },
+	    	    "num": function(index){
+	    	        return index + 1;
+	    	    },
+	    	    "prefix": "No"
+	    	}, 10);
+	    	console.log(t)
+	    	
+	    	//嵌套
+	    	var temp = '<ul>{{lists}}</ul>';
+	    	var lists = '<li>{{content}}</li>';
+            var t = template(temp, {
+                "lists": function(){
+                    return template(lists, {
+                        "content": function(index){
+                            return index % 2 ? '偶数' : '奇数';
+                        }
+                    }, 10);
+                }
+            });
+            console.log(t)
+	    </script>
+	</body>
+</html>
